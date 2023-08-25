@@ -2,7 +2,7 @@ version: 0.1.0
 jobId: "1178"
 jobName: TestMultiDomain
 jobType: Source Aligned Data Product
-alias: load_data_to_iceberge
+alias: load_data_to_iceberge_new
 discoveryPort:
   name: TestMultiDomain
 inputPorts:
@@ -21,7 +21,7 @@ inputPorts:
       advanceOptions:
         mergeSchema: false
 productState:
-  alias: load_data_to_iceberge
+  alias: load_data_to_iceberge_new
   refreshInterval: 0 0 * * *
   retentionVersions: ""
   updateStrategy: Append
@@ -120,7 +120,15 @@ productState:
   isProfilingEnabled: false
   tableName: weather_multi_domain
   stateStoreType: iceberg
-transformation: []
+transformation:
+  - alias: Spark_SQL_1
+    type: SQL
+    description: select weather
+    query: select * from weather
+    sequenceNo: 2
+    references:
+      - alias: Weather_1
+        sqlReference: weather
 controlPort:
   dataQualityRules: {}
 outputPort:
